@@ -1,0 +1,60 @@
+version: 7.7
+
+compose:
+  files:
+    - docker-compose.yml
+
+interaction:
+  runner:
+    description: Open the Bash shell with dependencies running
+    service: backend
+    command: /bin/bash
+
+  shell:
+    description: Open the Bash shell in backend's container
+    service: backend
+    command: /bin/bash
+    compose_run_options: [no-deps]
+
+  bundle:
+    description: Run Bundler commands
+    service: backend
+    command: bundle
+    compose_run_options: [no-deps]
+
+  rails:
+    description: Run Rails commands
+    service: backend
+    command: bundle exec rails
+    subcommands:
+      s:
+        description: Run Rails server at http://localhost:3000
+        service: backend
+        compose_run_options: [service-ports, use-aliases]
+
+  rspec:
+    description: Run RSpec commands
+    service: backend
+    command: rspec
+    environment:
+      RAILS_ENV: test
+
+  rubocop:
+    description: Run rubocop command
+    service: backend
+    command: rubocop
+
+  yarn:
+    description: Run Yarn commands
+    service: backend
+    command: yarn
+    compose_run_options: [no-deps]
+
+provision:
+  - sh .dockerdev/bootstrap.sh
+  - dip compose down
+  - dip compose build backend
+  - dip bundle install
+  - dip bundle clean --force
+  - dip runner -c bin/setup
+  - dip RAILS_ENV=test rails db:create db:migrate
