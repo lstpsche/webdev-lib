@@ -1,0 +1,156 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  Exclude:
+    - db/migrate/*
+    - db/schema.rb
+    - config/**/*
+    - vendor/**/*
+    - bin/*
+    - Gemfile.lock
+  NewCops: disable
+  SuggestExtensions: false
+
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
+
+Rails/ApplicationController:
+  Exclude:
+    - spec/**/*
+
+Lint/ConstantDefinitionInBlock:
+  Exclude:
+    - spec/**/*
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Style/ExponentialNotation:
+  Enabled: true
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/SlicingWithRange:
+  Enabled: true
+
+Layout/MultilineMethodCallBraceLayout:
+  EnforcedStyle: new_line
+
+Metrics/AbcSize:
+  Max: 17
+  Exclude:
+    - lib/tasks/**/*
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Layout/LineLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/ClassLength:
+  Max: 200
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+    - lib/tasks/**/*
+
+Metrics/ParameterLists:
+  Max: 8
+
+Naming/RescuedExceptionsVariableName:
+  PreferredName: error
+
+Style/Alias:
+  EnforcedStyle: prefer_alias_method
+
+Style/Documentation:
+  Enabled: false
+
+Style/FormatStringToken:
+  EnforcedStyle: template
+
+Style/NumericLiterals:
+  Enabled: false
+
+Style/RegexpLiteral:
+  EnforcedStyle: slashes
+  AllowInnerSlashes: true
+
+Layout/SpaceAroundOperators:
+  EnforcedStyleForExponentOperator: space
+
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - development
+    - staging
+    - test
+    - local
+
+RSpec/NamedSubject:
+  Enabled: false
+
+RSpec/MessageSpies:
+  EnforcedStyle: receive
+
+RSpec/MultipleExpectations:
+  Max: 4
+  Exclude:
+    - spec/serializers/**/*
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/DescribeClass:
+  Exclude:
+    - spec/lib/tasks/**/*
+    - spec/schedule_spec.rb
+
+RSpec/NestedGroups:
+  Enabled: false
+
+RSpec/VerifiedDoubles:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/LetBeforeExamples:
+  Enabled: false
+
+RSpec/EmptyExampleGroup:
+  Enabled: false
+
+RSpec/LeakyConstantDeclaration:
+  Enabled: false
+
+RSpec/InstanceVariable:
+  Enabled: false
+
+RSpec/LetSetup:
+  Enabled: false

@@ -1,0 +1,73 @@
+version: "3.9"
+
+x-app: &app
+  build:
+    context: .
+    dockerfile: .dockerdev/Dockerfile
+    args:
+      RUBY_VERSION: '3.2.2'
+      NODE_MAJOR: '20'
+  env_file: .env
+  environment: &env
+    NODE_ENV: ${NODE_ENV:-development}
+    RAILS_ENV: ${RAILS_ENV:-development}
+  image: "webdev-lib-dev:latest"
+  tmpfs:
+    - /tmp
+    - /app/tmp/pids
+
+x-backend: &backend
+  <<: *app
+  stdin_open: true
+  tty: true
+  volumes:
+    - .:/app
+    - rails_cache:/app/tmp/cache
+    - bundle:/usr/local/bundle
+    - node_modules:/app/node_modules
+
+services:
+  backend:
+    <<: *backend
+    stdin_open: true
+    tty: true
+    environment:
+      DB_HOST: $DB_HOST
+      DB_PASSWORD: $DB_PASSWORD
+    volumes:
+      - .:/app
+      - rails_cache:/app/tmp/cache
+      - bundle:/usr/local/bundle
+      - node_modules:/app/node_modules
+    ports:
+      - 3000:3000
+    depends_on:
+      webpack:
+        condition: service_started
+      database:
+        condition: service_healthy
+
+  database:
+    image: postgres:14.3-alpine
+    restart: unless-stopped
+    volumes:
+      - database:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: $DB_NAME
+      POSTGRES_USER: $DB_USER
+      POSTGRES_PASSWORD: $DB_PASSWORD
+    healthcheck:
+      test: pg_isready -U $DB_USER -d $DB_NAME
+      interval: 5s
+
+  webpack:
+    <<: *backend
+    environment:
+      NODE_ENV: development
+    command: bin/webpack-dev
+
+volumes:
+  bundle:
+  node_modules:
+  rails_cache:
+  database:
