@@ -6,12 +6,12 @@ compose:
 
 interaction:
   runner:
-    description: Open the Bash shell with dependencies running
+    description: Open Bash shell with dependencies running
     service: backend
     command: /bin/bash
 
   shell:
-    description: Open the Bash shell in backend's container
+    description: Open Bash shell in backend's container
     service: backend
     command: /bin/bash
     compose_run_options: [no-deps]

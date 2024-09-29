@@ -2,8 +2,6 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 import NotFound from "./components/errors/not_found";
 import Home from "./components/home";
-import SignIn from "./components/authorization/sign_in";
-import SignUp from "./components/authorization/sign_up";
 
 function Router(props) {
   const removeTrailingSlashes = () => {
@@ -20,8 +18,8 @@ function Router(props) {
       <Routes>
         { removeTrailingSlashes() }
         <Route path="/" exact element={<Home/>} />
-        <Route path="/sign_in" exact element={<Navigate to="/"/>} />
-        <Route path="/sign_up" exact element={<Navigate to="/"/>} />
+        {/* <Route path="/sign_in" exact element={<Navigate to="/"/>} />
+        <Route path="/sign_up" exact element={<Navigate to="/"/>} />*/}
 
         <Route path="/" element={<NotFound/>} />
       </Routes>
@@ -32,8 +30,8 @@ function Router(props) {
     return (
       <Routes>
         <Route path="/" exact element={<Home/>} />
-        <Route path="/sign_in" exact element={<SignIn/>} />
-        <Route path="/sign_up" exact element={<SignUp/>} />
+        {/* <Route path="/sign_in" exact element={<SignIn/>} />
+        <Route path="/sign_up" exact element={<SignUp/>} /> */}
 
         <Route path="/" element={<Navigate to="/"/>} />
       </Routes>

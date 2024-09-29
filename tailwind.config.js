@@ -4,6 +4,7 @@ module.exports = {
   theme: {
     extend: {},
   },
+  darkmode: 'selector',
   plugins: [
     require('@tailwindcss/forms'),
   ],
