@@ -1,20 +1,20 @@
-import { setCurrentUser } from "../store/actions/current_user";
+import { setItems } from "../store/actions/items";
 import { blockPage, unblockPage } from "../store/actions/page_block";
 import store from "../store/webdev_lib_store";
 
 import fetchLink from "../helpers/fetch_link";
 
-function updateCurrentUser() {
+function updateItems() {
   store.dispatch(blockPage());
 
   fetchLink({
-    link: "/api/v1/current_user",
-    onSuccess: ({ signed_in, user = {} }) => {
-      store.dispatch(setCurrentUser({ signedIn: signed_in, ...user }));
+    link: "/api/v1/items",
+    onSuccess: ({ items }) => {
+      store.dispatch(setItems(items));
       store.dispatch(unblockPage());
     },
     errorMessage: "An error occurred. Please, reload the page."
   });
 }
 
-export default updateCurrentUser;
+export default updateItems;

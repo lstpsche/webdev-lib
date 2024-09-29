@@ -6,10 +6,12 @@ import Router from "./router";
 // import CustomToaster from "./components/custom_toaster";
 
 import updateCurrentUser from "./data_loaders/update_current_user";
+import updateItems from "./data_loaders/update_items";
 
 function Application() {
   useEffect(() => {
     updateCurrentUser();
+    updateItems();
   });
 
   return(
