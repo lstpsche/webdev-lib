@@ -1,4 +1,6 @@
-function Body() {
+import { connect } from "react-redux";
+
+function Body({ items }) {
   return (
     <div
       id="main-body"
@@ -10,8 +12,14 @@ function Body() {
       "
     >
       Body here
+      {/* TODO: to be deleted; here only for dev purposes */}
+      <div>
+        {JSON.stringify(items, null, 2)}
+      </div>
     </div>
   )
 }
 
-export default Body;
+const mapStateToProps = ({ items }) => ({ items });
+
+export default connect(mapStateToProps)(Body);

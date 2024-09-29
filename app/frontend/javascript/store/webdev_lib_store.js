@@ -9,7 +9,8 @@ const defaultStoreState = {
     open: false,
     signIn: { open: false },
     signUp: { open: false }
-  }
+  },
+  items: [] // { id, name, link, description, parent_id, item_type, is_project, is_category, children_count, has_children }
 };
 
 export default configureStore({

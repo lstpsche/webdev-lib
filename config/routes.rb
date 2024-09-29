@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resource :current_user, only: %i[show update]
+      resources :items, only: %i[index]
     end
   end
 
