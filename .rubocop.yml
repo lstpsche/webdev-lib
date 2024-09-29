@@ -10,11 +10,12 @@ AllCops:
     - vendor/**/*
     - bin/*
     - Gemfile.lock
+    - tmp/**/*
   NewCops: disable
   SuggestExtensions: false
 
 Naming/VariableNumber:
-  EnforcedStyle: snake_case
+  Enabled: false
 
 Rails/ApplicationController:
   Exclude:
@@ -80,7 +81,7 @@ Metrics/BlockLength:
     - lib/tasks/**/*
 
 Metrics/ParameterLists:
-  Max: 8
+  Max: 10
 
 Naming/RescuedExceptionsVariableName:
   PreferredName: error
@@ -101,6 +102,9 @@ Style/RegexpLiteral:
   EnforcedStyle: slashes
   AllowInnerSlashes: true
 
+Style/HashSyntax:
+  EnforcedShorthandSyntax: either
+
 Layout/SpaceAroundOperators:
   EnforcedStyleForExponentOperator: space
 
@@ -108,9 +112,7 @@ Rails/UnknownEnv:
   Environments:
     - production
     - development
-    - staging
     - test
-    - local
 
 RSpec/NamedSubject:
   Enabled: false
@@ -129,7 +131,6 @@ RSpec/MultipleMemoizedHelpers:
 RSpec/DescribeClass:
   Exclude:
     - spec/lib/tasks/**/*
-    - spec/schedule_spec.rb
 
 RSpec/NestedGroups:
   Enabled: false
@@ -153,4 +154,7 @@ RSpec/InstanceVariable:
   Enabled: false
 
 RSpec/LetSetup:
+  Enabled: false
+
+Rails/TimeZone:
   Enabled: false
