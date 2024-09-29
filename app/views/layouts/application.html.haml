@@ -1,5 +1,6 @@
 !!!
-%html.h-full.bg-white
+-# NOTE: default color scheme is .dark, to enable white - remove .dark class
+%html.dark
   %head
     %meta{ content: 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type' }/
     %title WebDev Library
@@ -8,5 +9,6 @@
     = csp_meta_tag
     = stylesheet_link_tag 'application', "data-turbo-track": "reload"
     = javascript_include_tag 'application', "data-turbo-track": "reload", defer: true
-  %body.h-full
-    = yield
+  %body
+    .h-full.w-full{ class: 'bg-white dark:bg-gray-900' }
+      = yield
