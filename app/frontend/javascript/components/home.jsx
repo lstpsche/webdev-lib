@@ -1,4 +1,4 @@
-import SidebarTree from "./ui/sidebar_tree";
+import Sidebar from "./ui/sidebar";
 import Body from "./ui/body";
 import Footer from "./ui/footer";
 
@@ -12,7 +12,7 @@ function Home() {
           grid grid-cols-[max-content_auto]
         "
       >
-        <SidebarTree/>
+        <Sidebar/>
         <Body/>
       </div>
       <Footer/>

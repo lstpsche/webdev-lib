@@ -3,8 +3,8 @@ import {
   UNBLOCK_PAGE
 } from "../action_types/page_block";
 
-const initialState = {
-  status: false,
+export const initialState = {
+  status: true, // default status = true made so that the first thing to appear on a screen would be a loading screen
   blockMessage: undefined
 };
 

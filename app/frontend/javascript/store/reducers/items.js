@@ -5,7 +5,7 @@ import {
   REMOVE_ITEM
 } from "../action_types/items";
 
-const initialState = [];
+export const initialState = []; // { id, name, link, description, parent_id, item_type, is_project, is_category, children_count, has_children }
 
 function items(state = initialState, action) {
   const { type: actionType, items, item } = action;

@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import {
+  userBlockPopupSetWindowSignIn, userBlockPopupSetWindowUserActions,
+  toggleUserBlockPopup
+} from "../../store/actions/ui";
 
-function Footer() {
+function Footer({ userBlockPopupOpen, currentUser, toggleSignIn, toggleUserBlockPopup }) {
   const [time, setTime] = useState(new Date());
 
   const contributeBlock = () => {
@@ -8,9 +13,23 @@ function Footer() {
     return ("Contribute")
   }
 
-  const userBlock = () => {
-    // TODO: dynamic user block will be implemented in #WDL-8
-    return ("username")
+  const userButton = () => {
+    return (
+      <button
+        id="footer:sign-in-button"
+        className={`
+          px-1 rounded hover:bg-cyan-950
+          ${userBlockPopupOpen ? "bg-gray-800" : "bg-transparent"}
+        `}
+        onClick={currentUser.signedIn ? toggleUserBlockPopup : toggleSignIn}
+      >
+        {
+          currentUser.signedIn
+          ? currentUser.displayName
+          : "Join community"
+        }
+      </button>
+    )
   }
 
   useEffect(() => {
@@ -35,7 +54,7 @@ function Footer() {
       "
     >
       <div id="footer-username">
-        { userBlock() }
+        { userButton() }
       </div>
       <div className="flex flex-row">
         <div
@@ -55,4 +74,20 @@ function Footer() {
   )
 }
 
-export default Footer;
+const mapStateToProps = ({
+  ui: { userBlockPopup: { open } },
+  currentUser: { signedIn, displayName }
+}) => ({
+  userBlockPopup: open,
+  currentUser: { signedIn, displayName }
+});
+
+const mapDispatchToProps = dispatch => ({
+  toggleSignIn: () => {
+    dispatch(userBlockPopupSetWindowSignIn());
+    dispatch(toggleUserBlockPopup());
+  },
+  toggleUserBlockPopup: () => dispatch(toggleUserBlockPopup()) // not setting windowUserActions to save users state -- this reset is controlled in other components
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Footer);

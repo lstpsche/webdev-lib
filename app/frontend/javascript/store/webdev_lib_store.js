@@ -1,16 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import combinedReducers from "./reducers/index";
 
-const defaultStoreState = {
-  currentUser: { id: undefined, signedIn: undefined, email: "" },
-  // default status = true made so that the first thing to appear on a screen would be a loading screen
-  pageBlock: { status: true, blockMessage: undefined },
-  sidebar: {
-    open: false,
-    signIn: { open: false },
-    signUp: { open: false }
-  },
-  items: [] // { id, name, link, description, parent_id, item_type, is_project, is_category, children_count, has_children }
+import { initialState as uiInitialState } from "./reducers/ui";
+import { initialState as currentUserInitialState  } from "./reducers/current_user";
+import { initialState as pageBlockInitialState } from "./reducers/page_block";
+import { initialState as itemsInitialState } from "./reducers/items";
+
+export const defaultStoreState = {
+  ui: uiInitialState,
+  currentUser: currentUserInitialState,
+  pageBlock: pageBlockInitialState,
+  items: itemsInitialState
 };
 
 export default configureStore({

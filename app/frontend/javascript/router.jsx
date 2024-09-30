@@ -18,8 +18,6 @@ function Router(props) {
       <Routes>
         { removeTrailingSlashes() }
         <Route path="/" exact element={<Home/>} />
-        {/* <Route path="/sign_in" exact element={<Navigate to="/"/>} />
-        <Route path="/sign_up" exact element={<Navigate to="/"/>} />*/}
 
         <Route path="/" element={<NotFound/>} />
       </Routes>
@@ -30,8 +28,6 @@ function Router(props) {
     return (
       <Routes>
         <Route path="/" exact element={<Home/>} />
-        {/* <Route path="/sign_in" exact element={<SignIn/>} />
-        <Route path="/sign_up" exact element={<SignUp/>} /> */}
 
         <Route path="/" element={<Navigate to="/"/>} />
       </Routes>
