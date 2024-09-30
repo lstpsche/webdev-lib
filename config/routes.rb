@@ -6,11 +6,11 @@ Rails.application.routes.draw do
   get 'up' => 'rails/health#show', as: :rails_health_check
 
   devise_for :users, only: %i[sessions registrations],
-    controllers: {
-      registrations: 'api/v1/devise_custom/registrations',
-      sessions: 'api/v1/devise_custom/sessions'
-    },
-    path_names: { sign_in: 'sign_in', sign_up: 'sign_up', sign_out: 'sign_out' }
+                     controllers: {
+                       registrations: 'api/v1/devise_custom/registrations',
+                       sessions: 'api/v1/devise_custom/sessions'
+                     },
+                     path_names: { sign_in: 'sign_in', sign_up: 'sign_up', sign_out: 'sign_out' }
 
   namespace :api do
     namespace :v1 do

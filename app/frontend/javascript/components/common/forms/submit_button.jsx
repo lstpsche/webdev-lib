@@ -1,22 +1,30 @@
-function SubmitButton({ buttonText, formErrors}) {
+function SubmitButton({ btnRef = undefined, buttonType = "submit", onClick = (() => {}), buttonText, formErrors, disabled = false, loading = false }) {
   const submitButtonClassName = () => {
-    const baseClassNames = [
-      "flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500",
-      "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-    ].join(" ");
+    const baseClassNames = `
+      w-full
+      rounded-md px-3 py-1.5
+      text-sm font-thin leading-6 font-mono tracking-wide
+      enabled:text-gray-200 enabled:bg-gray-700 enabled:hover:bg-blue-800 enabled:focus-visible:bg-blue-800 enabled:focus-visible:outline-0
+      disabled:text-gray-700 disabled:bg-gray-800
+      transition-colors duration-200 ease-in-out
+    `
 
-    return [baseClassNames, (Object.keys(formErrors).length === 0 ? "" : "pointer-events-none opacity-30")].join(" ")
+    const loadingClassNames = !loading ? "" : `animate-pulse`
+    const errorClassNames = (Object.keys(formErrors).length === 0 ? "" : "pointer-events-none opacity-30");
+
+    return [baseClassNames, loadingClassNames, errorClassNames].join(" ")
   }
 
   return (
-    <div>
-      <button
-        type="submit"
-        className={submitButtonClassName()}
-      >
-        { buttonText }
-      </button>
-    </div>
+    <button
+      ref={btnRef}
+      disabled={disabled}
+      type={buttonType}
+      onClick={onClick}
+      className={submitButtonClassName()}
+    >
+      { buttonText }
+    </button>
   )
 }
 

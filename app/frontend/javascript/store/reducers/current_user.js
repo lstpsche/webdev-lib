@@ -4,11 +4,11 @@ import {
   REMOVE_CURRENT_USER
 } from "../action_types/current_user";
 
-const initialState = {
+export const initialState = {
   id: undefined,
   signedIn: undefined,
-  email: '',
-  displayName: ''
+  email: "",
+  displayName: ""
 };
 
 function currentUser(state = initialState, action) {
