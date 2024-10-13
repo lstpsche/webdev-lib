@@ -38,7 +38,7 @@ module Api
 
         # needed to render json as response
         def respond_with(resource, _opt = {})
-          render json: { user: resource.json }.to_json
+          render json: { signed_in: current_user.present? }.to_json
         end
       end
     end

@@ -1,30 +1,74 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import FormInput from "../../common/forms/form_input";
-import ErrorBlock from "../../common/forms/error_block";
-import SubmitButton from "../../common/forms/submit_button";
+import FormInput from "../../../../../common/forms/form_input";
+import ErrorBlock from "../../../../../common/forms/error_block";
+import SubmitButton from "../../../../../common/forms/submit_button";
 
 function SignUpForm({ onSubmit }) {
   const {
     register,
-    watch,
     handleSubmit,
+    getValues,
+    setError, clearErrors,
     formState: { errors },
   } = useForm();
 
-  const [errorMessage, setErrorMessage] = useState(undefined);
+  const [submitButtonStates, setSubmitButtonStates] = useState({ disabled: true, loading: false });
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+  //////////////////////////// functions ////////////////////////////
+
+  const onFormSubmitFailure = (errorMessage = "something went wrong") => {
+    setError("formSubmit", { type: "request", message: errorMessage });
+    setSubmitButtonStates({ disabled: true, loading: false });
+  }
 
   const handleFormSubmit = handleSubmit(
-    (args) => onSubmit(
-      { ...args, failureCallback: ({ error }) => setErrorMessage(error) }
-    )
+    (args) => {
+      if (args.email === "" || args.password === "") return;
+
+      setSubmitButtonStates({ disabled: true, loading: true });
+      onSubmit({ ...args, failureCallback: onFormSubmitFailure });
+    }
   )
 
-  const validatePasswordConfirmation = (val) => {
-    if (watch("password") != val)
-      return "Passwords do not match"
+  const handleOnKeyUp = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleFormSubmit();
+    }
   }
+
+  const onFieldChange = () => {
+    setSubmitButtonStates({...submitButtonStates, disabled: getValues("email") === "" || getValues("password") === "" });
+    clearErrors("formSubmit");
+  }
+
+  ////////////////////////// validations /////////////////////////
+
+  const validateEmailValue = (emailValue) => {
+    if (!emailRegex.test(emailValue)) {
+      return "invalid email";
+    }
+
+    return true;
+  }
+
+  const validatePasswordValue = (passwordValue) => {
+    if (passwordValue.length < 6) {
+      return "password should be minimum 6 characters long";
+    }
+
+    return true;
+  }
+
+  const getErrorMessage = () => {
+    return errors?.email?.message || errors?.password?.message || errors?.formSubmit?.message;
+  }
+
+  //////////////////////////// fields ////////////////////////////
 
   const emailField = () => {
     const fieldName = "email";
@@ -34,10 +78,9 @@ function SignUpForm({ onSubmit }) {
         fieldName={fieldName}
         type="text"
         autocomplete={fieldName}
-        placeholder="sample@mail.com"
-        labelText="Email address"
-        registration={register(fieldName, { required: "This field is required" })}
-        errors={errors}
+        placeholder="email"
+        registration={register(fieldName, { validate: { format: validateEmailValue }, onChange: onFieldChange })}
+        onKeyUp={handleOnKeyUp}
       />
     )
   }
@@ -50,42 +93,34 @@ function SignUpForm({ onSubmit }) {
         fieldName={fieldName}
         type="password"
         autocomplete="current-password"
-        placeholder="Password"
-        labelText="Password"
-        registration={register(fieldName, { required: "This field is required", minLength: { value: 6, message: "Password should be at least 6 characters long" } })}
-        errors={errors}
-      />
-    )
-  }
-
-  const passwordConfirmationField = () => {
-    const fieldName = "passwordConfirmation";
-
-    return (
-      <FormInput
-        fieldName={fieldName}
-        type="password"
-        placeholder="Repeat password"
-        labelText="Confirm password"
-        registration={register(fieldName, { required: "This field is required", validate: validatePasswordConfirmation })}
-        errors={errors}
+        placeholder="password"
+        registration={register(fieldName, { validate: { longerThanSixChars: validatePasswordValue }, onChange: onFieldChange })}
+        onKeyUp={handleOnKeyUp}
       />
     )
   }
 
   return (
-    <form className="space-y-6" onSubmit={handleFormSubmit}>
-      <ErrorBlock
-        errorMessage={errorMessage}
-        onClick={() => setErrorMessage(undefined)}
-      />
+    <div className="flex flex-col h-full justify-between">
+      <form className="flex flex-grow flex-col mt-3">
+        <div className="flex h-full flex-col space-y-3 justify-center">
+          { emailField() }
+          { passwordField() }
 
-      { emailField() }
-      { passwordField() }
-      { passwordConfirmationField() }
+          <ErrorBlock errorMessage={getErrorMessage()} />
+        </div>
+      </form>
 
-      <SubmitButton buttonText="Create account" formErrors={errors} />
-    </form>
+      <div className="flex flex-col justify-center">
+        <SubmitButton
+          {...submitButtonStates} // disabled, loading
+          buttonType="button"
+          onClick={handleFormSubmit}
+          buttonText="create account"
+          formErrors={errors}
+        />
+      </div>
+    </div>
   )
 }
 

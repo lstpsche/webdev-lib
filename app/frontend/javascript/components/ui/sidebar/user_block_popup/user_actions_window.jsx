@@ -17,10 +17,9 @@ function UserActionsWindow({ closeUserBlockPopup }) {
           // TODO: unblock auth popup (hide animation block)
         } else {
           // TODO: animate success
-          //
-          // NOTE: now it looks sloppy (new window is visible while popup hiding), but with animation it will be fixed
           closeUserBlockPopup();
-          updateCurrentUser();
+          // wait 0.2 sec before updating current user to avoid visible window change
+          setTimeout(() => updateCurrentUser(), 200);
         }
       }
     })
