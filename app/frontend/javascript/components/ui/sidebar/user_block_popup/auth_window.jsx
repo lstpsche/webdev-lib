@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import { userBlockPopupSetWindowSignUp, userBlockPopupSetWindowSignIn } from "../../../../store/actions/ui";
 import { UI__USER_BLOCK_POPUP__WINDOWS } from "../../../../store/action_types/ui";
 import SignInBlock from "./auth_window/sign_in_block";
+import SignUpBlock from "./auth_window/sign_up_block";
 
 function AuthWindow({ windowSignIn, windowSignUp, userBlockPopupSetWindowSignIn, userBlockPopupSetWindowSignUp }) {
   const headerButtonClasses = (active) => (
@@ -40,8 +41,7 @@ function AuthWindow({ windowSignIn, windowSignUp, userBlockPopupSetWindowSignIn,
       </h1>
 
       { windowSignIn && <SignInBlock/> }
-      {/* // TODO: will be implemented in #WDL-10 */}
-      {/* { windowSignUp && <SignUpBlock/> } */}
+      { windowSignUp && <SignUpBlock/> }
     </div>
   )
 }

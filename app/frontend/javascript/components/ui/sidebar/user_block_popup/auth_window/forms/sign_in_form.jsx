@@ -61,7 +61,6 @@ function SignInForm({ onSubmit }) {
         autocomplete={fieldName}
         placeholder="email"
         registration={register(fieldName, { onChange: onFieldChange })}
-        errors={errors}
         onKeyUp={handleOnKeyUp}
       />
     )
@@ -104,7 +103,6 @@ function SignInForm({ onSubmit }) {
           placeholder="password"
           wrapperClassName={"flex-grow"}
           registration={register(fieldName, { onChange: onFieldChange })}
-          errors={errors}
           onKeyUp={handleOnKeyUp}
         />
 
@@ -128,12 +126,11 @@ function SignInForm({ onSubmit }) {
 
       <div className="flex flex-col justify-center">
         <SubmitButton
-          disabled={submitButtonStates.disabled}
+          {...submitButtonStates} // disabled, loading
           buttonType="button"
           onClick={handleFormSubmit}
           buttonText="sign in"
           formErrors={errors}
-          loading={submitButtonStates.loading}
         />
       </div>
     </div>

@@ -1,4 +1,4 @@
-function FormInput({ fieldName, type, autocomplete, placeholder, label, labelText, registration, errors, wrapperClassName, labelClassName = "mb-2", initialValue, onKeyUp = undefined }) {
+function FormInput({ fieldName, type, autocomplete, placeholder, label, labelText, registration, errors = {}, wrapperClassName, labelClassName = "mb-2", initialValue, onKeyUp = undefined }) {
   const validatableInputClassName = (fieldName) => {
     const baseClassNames = `
       w-full block
