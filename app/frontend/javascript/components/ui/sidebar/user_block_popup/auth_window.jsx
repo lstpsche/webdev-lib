@@ -29,19 +29,21 @@ function AuthWindow({ windowSignIn, windowSignUp, userBlockPopupSetWindowSignIn,
   )
 
   return(
-    <div
-      className="flex flex-col"
-      // default w/h values were measured in practice
-      // default w/h values are set here so that authPopup layout wouldn't be affected by sidebarWidth change
-      style={{ width: "223px", height: "223px" }}
-    >
-      <h1 className="tracking-wide font-mono text-center grid grid-flow-col grid-rows-1">
-        { signInHeaderButton() }
-        { signUpHeaderButton() }
-      </h1>
+    <div className="p-4">
+      <div
+        className="flex flex-col"
+        // default w/h values were measured in practice
+        // default w/h values are set here so that authPopup layout wouldn't be affected by sidebarWidth change
+        style={{ width: "223px", height: "223px" }}
+      >
+        <h1 className="tracking-wide font-mono text-center grid grid-flow-col grid-rows-1">
+          { signInHeaderButton() }
+          { signUpHeaderButton() }
+        </h1>
 
-      { windowSignIn && <SignInBlock/> }
-      { windowSignUp && <SignUpBlock/> }
+        { windowSignIn && <SignInBlock/> }
+        { windowSignUp && <SignUpBlock/> }
+      </div>
     </div>
   )
 }

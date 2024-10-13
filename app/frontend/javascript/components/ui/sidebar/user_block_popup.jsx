@@ -23,8 +23,6 @@ function UserBlockPopup({ sidebarWidth, footerHeight, open, popupWindow }) {
       }}
       className={`
         fixed left-0 z-10
-        h-64
-        p-4
         bg-white dark:bg-gray-900
         text-gray-700 dark:text-gray-100
         border-r border-t

@@ -4,7 +4,11 @@ import updateCurrentUser from "../../../../data_loaders/update_current_user";
 import fetchLink from "../../../../helpers/fetch_link";
 import { closeUserBlockPopup } from "../../../../store/actions/ui";
 
+import UserActionButton from "./user_actions_window/user_action_button";
+
 function UserActionsWindow({ closeUserBlockPopup }) {
+  //////////////////////// handlers ////////////////////////
+
   const handleSignOut = () => {
     // TODO: launch animation
 
@@ -25,14 +29,24 @@ function UserActionsWindow({ closeUserBlockPopup }) {
     })
   }
 
-  // TODO: Will be done properly in #WDL-26
-  // TODO: now it is needed to be able to logout and test sign in/sign up scenarios
+  const buttons = [
+    { name: "profile", label: "profile", onClick: () => {} },
+    { name: "settings", label: "settings", onClick: () => {} },
+    { name: "signOut", label: "sign out", onClick: handleSignOut }
+  ];
+
   return (
-    <button
-      onClick={handleSignOut}
-    >
-      Sign out
-    </button>
+    <div className="h-full flex flex-col">
+      {
+        buttons.map(button => (
+          <UserActionButton
+            key={button.name}
+            onClick={button.onClick}
+            label={button.label}
+          />
+        ))
+      }
+    </div>
   )
 }
 
