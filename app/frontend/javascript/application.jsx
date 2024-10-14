@@ -19,7 +19,6 @@ function Application() {
       {/*<FullPageLoader/>*/}
 
       {/*<CustomToaster/>*/}
-      {/* <SignIn/> */}
 
       <div>
         <Router/>
