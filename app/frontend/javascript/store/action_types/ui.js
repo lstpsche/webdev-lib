@@ -1,3 +1,9 @@
+////////////////////////////////// breadcrumbs //////////////////////////////////
+export const UI__BREADCRUMBS__RESET = "ui: breadcrumbs: reset";
+export const UI__BREADCRUMBS__SET = "ui: breadcrumbs: set";
+export const UI__BREADCRUMBS__PUSH = "ui: breadcrumbs: push";
+export const UI__BREADCRUMBS__POP = "ui: breadcrumbs: pop";
+
 //////////////////////////////////// sidebar ////////////////////////////////////
 // sidebar -> open
 export const UI__SIDEBAR__SET_OPEN = "ui: sidebar: open - set value";

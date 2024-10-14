@@ -1,4 +1,10 @@
 import {
+  // breadcrumbs
+  UI__BREADCRUMBS__RESET,
+  UI__BREADCRUMBS__SET,
+  UI__BREADCRUMBS__PUSH,
+  UI__BREADCRUMBS__POP,
+
   // sidebar
   UI__SIDEBAR__SET_OPEN,
   UI__SIDEBAR__TOGGLE_OPEN,
@@ -11,6 +17,14 @@ import {
   UI__USER_BLOCK_POPUP__SET_WINDOW,
   UI__USER_BLOCK_POPUP__WINDOWS,
 } from "../action_types/ui";
+
+////////////////////////////////// breadcrumbs //////////////////////////////////
+// breadcrumbs -> set
+export const resetBreadcrumbs = () => ({ type: UI__BREADCRUMBS__RESET });
+export const setBreadcrumbs = (breadcrumbs) => ({ type: UI__BREADCRUMBS__SET, breadcrumbs });
+export const pushBreadcrumb = (breadcrumb) => ({ type: UI__BREADCRUMBS__PUSH, breadcrumb });
+export const popBreadcrumb = () => ({ type: UI__BREADCRUMBS__POP });
+export const homeBreadcrumb = { title: "home", link: "/" };
 
 //////////////////////////////////// sidebar ////////////////////////////////////
 // sidebar -> open

@@ -1,33 +1,26 @@
 import { connect } from "react-redux";
+import { Outlet } from "react-router-dom";
 
-import ItemsGrid from "./body/items_grid";
+import Breadcrumbs from "./body/breadcrumbs";
 
-const projectItemType = "project";
-
-function Body({ items, footerHeight }) {
+function Body({ footerHeight }) {
   return (
     <div
       id="main-body"
-      style={{ paddingBottom: footerHeight + 1 + 32 }} // 1px footer border, 32px padding (p-8 = 2rem = 32px)
+      style={{ paddingBottom: footerHeight + 1 }} // 1px footer border
       className="
         h-screen
         bg-white text-gray-700
         dark:bg-gray-900 dark:text-gray-100
         overflow-y-scroll overflow-x-none
-        pt-8 px-8
       "
     >
-      <ItemsGrid items={items} />
+      <Breadcrumbs />
+      <Outlet />
     </div>
   )
 }
 
-const mapStateToProps = ({
-  items,
-  ui: { footer: { height } }
-}) => ({
-  items: items.filter(item => item.item_type === projectItemType),
-  footerHeight: height
-});
+const mapStateToProps = ({ ui: { footer: { height } } }) => ({ footerHeight: height });
 
 export default connect(mapStateToProps)(Body);
