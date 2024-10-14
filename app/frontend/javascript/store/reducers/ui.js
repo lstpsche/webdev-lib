@@ -1,4 +1,10 @@
 import {
+  // breadcrumbs
+  UI__BREADCRUMBS__RESET,
+  UI__BREADCRUMBS__SET,
+  UI__BREADCRUMBS__PUSH,
+  UI__BREADCRUMBS__POP,
+
   // sidebar
   UI__SIDEBAR__SET_OPEN,
   UI__SIDEBAR__TOGGLE_OPEN,
@@ -12,16 +18,32 @@ import {
   UI__USER_BLOCK_POPUP__WINDOWS,
 } from "../action_types/ui";
 
+import { homeBreadcrumb } from "../actions/ui";
+
 export const initialState = {
+  breadcrumbs: [homeBreadcrumb], // [{ title, link }]; last = current
   sidebar: { open: false, width: 256 }, // width in pixels
   userBlockPopup: { open: false, window: UI__USER_BLOCK_POPUP__WINDOWS.signIn },
   footer: { height: 25 } // height in pixels
 };
 
 function ui(state = initialState, action) {
-  const { type: actionType, userBlockPopup, sidebar } = action;
+  const { type: actionType, userBlockPopup, sidebar, breadcrumbs, breadcrumb } = action;
 
   switch(actionType) {
+    //////////////////////////////////// breadcrumbs //////////////////////////////////
+    case UI__BREADCRUMBS__RESET:
+      return { ...state, breadcrumbs: initialState.breadcrumbs };
+
+    case UI__BREADCRUMBS__SET:
+      return { ...state, breadcrumbs: breadcrumbs };
+
+    case UI__BREADCRUMBS__PUSH:
+      return { ...state, breadcrumbs: [...state.breadcrumbs, breadcrumb] };
+
+    case UI__BREADCRUMBS__POP:
+      return { ...state, breadcrumbs: state.breadcrumbs.slice(0, -1) };
+
     //////////////////////////////////// sidebar ////////////////////////////////////
     case UI__SIDEBAR__SET_OPEN:
       return { ...state, sidebar: { ...state.sidebar, open: sidebar.open } };
