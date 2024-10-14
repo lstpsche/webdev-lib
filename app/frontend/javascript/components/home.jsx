@@ -8,7 +8,8 @@ function Home() {
       <div
         className="
           fixed top-0 right-0
-          w-full h-screen
+          w-full min-h-screen
+          overflow-y-scroll
           grid grid-cols-[max-content_auto]
         "
       >
